@@ -1,0 +1,76 @@
+---
+net:
+  no FW:
+    source_addresses:
+      - "10.1.1.8/30"
+    destination_addresses:
+      - "10.1.1.16/30"
+    protocols: ["TCP"]
+    destination_ports:
+      - "443"
+  FW-A to FW-A:
+    source_addresses:
+      - "10.1.1.8/30"
+    destination_addresses:
+      - "10.1.2.16/30"
+    protocols: ["TCP"]
+    destination_ports:
+      - "443"
+  FW-B to FW-A:
+    source_addresses:
+      - "10.2.1.8/30"
+    destination_addresses:
+      - "10.1.2.16/30"
+    protocols: ["TCP"]
+    destination_ports:
+      - "443"
+  Supernet sweep:
+    source_addresses:
+      - "10.0.0.0/8"
+    destination_addresses:
+      - "172.16.5.0/24"
+    protocols: ["TCP"]
+    destination_ports:
+      - "8443"
+  FW-A to Internet:
+    source_addresses:
+      - "10.1.1.1/32"
+    destination_addresses:
+      - "198.51.100.7/32" # reserved IP
+      - "8.8.8.0/24"
+    protocols: ["TCP"]
+    destination_ports:
+      - "22"
+  Internet to FW-B:
+    source_addresses:
+      - "203.0.113.0/24" # reserved IP
+      - "1.1.1.0/24"
+    destination_addresses:
+      - "10.2.2.2/32"
+    protocols: ["TCP"]
+    destination_ports:
+      - "22"
+  Internet to FW-I2 DMZ:
+    source_addresses:
+      - "1.1.1.0/24"
+    destination_addresses:
+      - "100.64.2.10/32"
+    protocols: ["TCP"]
+    destination_ports:
+      - "443"
+  FW-I2 DMZ to Internet:
+    source_addresses:
+      - "100.64.2.10/32"
+    destination_addresses:
+      - "8.8.8.0/24"
+    protocols: ["TCP"]
+    destination_ports:
+      - "443"
+  FW-A to FW-I2 DMZ:
+    source_addresses:
+      - "10.1.1.8/30"
+    destination_addresses:
+      - "100.64.2.10/32"
+    protocols: ["TCP"]
+    destination_ports:
+      - "443"
